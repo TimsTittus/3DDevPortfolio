@@ -83,10 +83,11 @@ const HeroSection = () => {
               <div className="mt-8 flex flex-col gap-3 w-fit">
                 <Link
                   href={
-                    "https://drive.google.com/file/d/1MTSsUA8V7Po2AsNXT8kZ5sLOpzC8l7qm/view?usp=sharing"
+                    "htt://drive.google.com/"
                   }
                   target="_blank"
                   className="flex-1"
+                  aria-label="Resume PDF on Google Drive"
                 >
                   <BoxReveal delay={2} width="100%" >
                     <Button className="flex items-center gap-2 w-full">
@@ -102,6 +103,7 @@ const HeroSection = () => {
                         <Button
                           variant={"outline"}
                           className="block w-full overflow-hidden"
+                          aria-label="Contact - Hire Me"
                         >
                           Hire Me
                         </Button>
@@ -116,7 +118,7 @@ const HeroSection = () => {
                       href={config.social.twitter}
                       target="_blank"
                     >
-                      <Button variant={"outline"}>
+                      <Button variant={"outline"} aria-label="Twitter Profile">
                         <SiX size={24} />
                       </Button>
                     </Link>
@@ -125,7 +127,7 @@ const HeroSection = () => {
                       target="_blank"
                       className="cursor-can-hover"
                     >
-                      <Button variant={"outline"}>
+                      <Button variant={"outline"} aria-label="GitHub Profile">
                         <SiGithub size={24} />
                       </Button>
                     </Link>
@@ -134,7 +136,7 @@ const HeroSection = () => {
                       target="_blank"
                       className="cursor-can-hover"
                     >
-                      <Button variant={"outline"}>
+                      <Button variant={"outline"} aria-label="LinkedIn Profile">
                         <SiLinkedin size={24} />
                       </Button>
                     </Link>
@@ -144,7 +146,6 @@ const HeroSection = () => {
             </div>
           )}
         </div>
-        <div className="grid col-span-1"></div>
       </div>
       <div className="absolute bottom-10 left-[50%] translate-x-[-50%]">
         <ScrollDownIcon />
