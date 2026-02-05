@@ -236,11 +236,55 @@ export type Project = {
 };
 const projects: Project[] = [
   {
+    id: "MonkeyPen.ai",
+    category: "Ai",
+    title: "MonkeyPen.ai",
+    src: "/assets/projects-screenshots/monkeypenai/",
+    screenshots: ["home.png", "ai.png"],
+    live: "https://monkeypen.vercel.app",
+    github: "https://github.com/TimsTittus/MonkeyPen-Site",
+    skills: {
+      frontend: [
+        PROJECT_SKILLS.react,
+        PROJECT_SKILLS.ts,
+        PROJECT_SKILLS.tailwind,
+      ],
+      backend: [
+        PROJECT_SKILLS.python,
+      ],
+    },
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono ">
+            AI-powered tool that converts text into realistic handwritten output, offering 50+ handwriting styles, real-time previews, and multi-format export options.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <TypographyH3 className="my-4 mt-8">Features</TypographyH3>
+          <ul className="list-disc ml-6 font-mono mb-4">
+            <li>Text to Handwriting: Convert typed content to handwritten format</li>
+            <li>Multiple Styles: 50+ handwriting variations available</li>
+            <li>Real-time Preview: See output as you type</li>
+            <li>Export Options: Download in multiple formats</li>
+          </ul>
+          <SlideShow
+            images={[
+              `${BASE_PATH}/monkeypenai/home.png`,
+              `${BASE_PATH}/monkeypenai/features.png`,
+              `${BASE_PATH}/monkeypenai/ai.png`,
+
+            ]}
+          />
+        </div>
+      );
+    },
+  },
+  {
     id: "portfolio",
     category: "Portfolio",
     title: "My Portfolio",
     src: "/assets/projects-screenshots/portfolio/",
-    screenshots: [".png"],
+    screenshots: ["project.png", "skills.png"],
     live: "http://timstittus.vercel.app",
     github: "https://github.com/timstittus/PortF",
     skills: {
@@ -259,7 +303,7 @@ const projects: Project[] = [
       return (
         <div>
           <TypographyP className="font-mono ">
-            Welcome to my digital playground, where creativity meets code in the
+            Welcome to my portfolio, where creativity meets code in the
             dopest way possible.
           </TypographyP>
           <ProjectsLinks live={this.live} repo={this.github} />
@@ -301,6 +345,5 @@ const projects: Project[] = [
       );
     },
   },
-
 ];
 export default projects;
