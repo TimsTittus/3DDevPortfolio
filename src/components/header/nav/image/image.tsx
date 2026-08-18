@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -7,10 +8,11 @@ import { cn } from "@/lib/utils";
 
 interface IndexProps {
   src: string;
+  alt: string;
   isActive: boolean;
 }
 
-const Index: React.FC<IndexProps> = ({ src, isActive }) => {
+const Index: React.FC<IndexProps> = ({ src, alt, isActive }) => {
   return (
     <motion.div
       variants={opacity}
@@ -23,7 +25,7 @@ const Index: React.FC<IndexProps> = ({ src, isActive }) => {
         width={400}
         height={400}
         className="my-32 w-full h-auto object-cover"
-        alt={"Image"}
+        alt={alt}
         // priority={true}
       />
     </motion.div>

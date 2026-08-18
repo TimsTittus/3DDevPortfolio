@@ -1,73 +1,135 @@
-import React from "react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa6";
 
-function Page() {
+import Breadcrumbs from "@/components/seo/breadcrumbs";
+import ContactForm from "@/components/ContactForm";
+import { personConfig } from "@/config/person";
+import { socialConfig } from "@/config/social";
+import { generatePageMetadata } from "@/lib/seo/metadata";
+import { JsonLd, graph } from "@/lib/seo/jsonld";
+import { breadcrumbSchema, type Crumb } from "@/lib/seo/breadcrumb-schema";
+import { webPageSchema } from "@/lib/seo/website-schema";
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    console.log(event)
-  }
+const PATH = "/contact";
+const TITLE = "Contact Tims Tittus — Developer & Cybersecurity Engineer";
+const DESCRIPTION =
+  "Get in touch with Tims Tittus about development work, AI projects or collaboration. Email, LinkedIn, GitHub, or send a message directly from this page.";
+
+const crumbs: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Contact", path: PATH },
+];
+
+export const metadata: Metadata = generatePageMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: PATH,
+  og: { heading: "Contact", eyebrow: "Get in touch", subtitle: DESCRIPTION },
+  keywords: ["contact Tims Tittus", "hire Tims Tittus", "Tims Tittus email"],
+});
+
+const CHANNELS = [
+  {
+    label: "Email",
+    value: personConfig.email,
+    href: `mailto:${personConfig.email}`,
+    icon: <FaEnvelope aria-hidden="true" />,
+    external: false,
+  },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/tims-tittus",
+    href: socialConfig.linkedin,
+    icon: <FaLinkedin aria-hidden="true" />,
+    external: true,
+  },
+  {
+    label: "GitHub",
+    value: "github.com/TimsTittus",
+    href: socialConfig.github,
+    icon: <FaGithub aria-hidden="true" />,
+    external: true,
+  },
+];
+
+export default function ContactPage() {
   return (
-    <section>
-      <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-zinc-200">
-          Contact Me
+    <main id="main-content" className="container mx-auto max-w-3xl px-4 pt-28 pb-24">
+      <Breadcrumbs items={crumbs} />
+
+      <header className="mb-10">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+          Contact
+        </h1>
+        <p className="mt-4 text-muted-foreground">
+          Freelance work, an AI or security-flavoured project, or just a
+          question about something on this site — send it over. Replies usually
+          go out within a couple of days.
+        </p>
+      </header>
+
+      <section aria-labelledby="direct" className="mb-12">
+        <h2 id="direct" className="text-xl font-semibold text-foreground mb-4">
+          Direct channels
         </h2>
-        <form action="#" className="space-y-8">
-          <div>
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >
-              Your email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-              placeholder="name@flowbite.com"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="subject"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >
-              Subject
-            </label>
-            <input
-              type="text"
-              id="subject"
-              className="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-              placeholder="Let me know how I can help you"
-              required
-            />
-          </div>
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="message"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-            >
-              Your message
-            </label>
-            <textarea
-              id="message"
-              rows={6}
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="Leave a comment..."
-            ></textarea>
-          </div>
-          <button
-            type="submit"
-            className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-            // onClick={handleSubmit}
-          >
-            Send message
-          </button>
-        </form>
-      </div>
-    </section>
+        <ul className="grid gap-3 sm:grid-cols-3">
+          {CHANNELS.map((channel) => (
+            <li key={channel.label}>
+              <a
+                href={channel.href}
+                {...(channel.external
+                  ? { target: "_blank", rel: "noopener noreferrer me" }
+                  : {})}
+                className="flex h-full flex-col gap-1 rounded-md border border-zinc-700 p-4 hover:border-zinc-500 transition-colors"
+              >
+                <span className="text-lg text-zinc-300">{channel.icon}</span>
+                <span className="text-sm text-foreground">{channel.label}</span>
+                <span className="text-xs text-muted-foreground break-all">
+                  {channel.value}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="message">
+        <h2 id="message" className="text-xl font-semibold text-foreground mb-4">
+          Send a message
+        </h2>
+        <ContactForm />
+      </section>
+
+      <p className="mt-12 text-sm text-muted-foreground">
+        Want the background first? Read{" "}
+        <Link href="/about" className="underline underline-offset-4 hover:text-foreground">
+          about Tims Tittus
+        </Link>
+        , browse the{" "}
+        <Link href="/projects" className="underline underline-offset-4 hover:text-foreground">
+          project case studies
+        </Link>{" "}
+        or check the{" "}
+        <Link href="/resume" className="underline underline-offset-4 hover:text-foreground">
+          résumé
+        </Link>
+        .
+      </p>
+
+      <JsonLd
+        id="schema-contact"
+        data={graph([
+          webPageSchema({
+            path: PATH,
+            name: TITLE,
+            description: DESCRIPTION,
+            type: "ContactPage",
+            hasBreadcrumb: true,
+          }),
+          breadcrumbSchema(PATH, crumbs),
+        ])}
+      />
+    </main>
   );
 }
-
-export default Page;

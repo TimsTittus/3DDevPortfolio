@@ -1,3 +1,4 @@
+"use client";
 import { EXPERIENCE, SkillNames, SKILLS } from "@/data/constants";
 import { SectionHeader } from "./section-header";
 import { Badge } from "../ui/badge";
@@ -101,9 +102,15 @@ const ExperienceCard = ({
                   variant="outline"
                   className="gap-2 text-xs font-normal bg-secondary/30 hover:bg-secondary/50 transition-colors border-transparent"
                 >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={skill.icon}
-                    alt={skill.label}
+                    alt=""
+                    aria-hidden="true"
+                    width={14}
+                    height={14}
+                    loading="lazy"
+                    decoding="async"
                     className="w-3.5 h-3.5 object-contain opacity-80"
                   />
                   {skill.label}

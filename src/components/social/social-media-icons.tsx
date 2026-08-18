@@ -37,8 +37,15 @@ const SocialMediaButtons = () => {
     <div ref={ref} className="z-10">
       {show &&
         BUTTONS.map((button) => (
-          <Link href={button.href} key={button.name} target="_blank">
-            <Button variant={"ghost"}>{button.icon}</Button>
+          <Link
+            href={button.href}
+            key={button.name}
+            target="_blank"
+            rel="noopener noreferrer me"
+          >
+            <Button variant={"ghost"} aria-label={`Tims Tittus on ${button.name}`}>
+              {button.icon}
+            </Button>
           </Link>
         ))}
     </div>

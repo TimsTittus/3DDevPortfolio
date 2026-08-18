@@ -13,7 +13,7 @@ function Footer() {
         © {year} {config.author}. All rights reserved.
       </p>
       <SocialMediaButtons />
-      <nav className="flex gap-4 sm:gap-6 z-10">
+      <nav aria-label="Footer" className="flex flex-wrap justify-center gap-2 sm:gap-4 z-10">
         {footer.map((link, index) => {
           const { title, href } = link;
 

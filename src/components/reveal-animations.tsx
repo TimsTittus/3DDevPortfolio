@@ -14,6 +14,10 @@ interface BlurIntProps {
     visible: { filter: string; opacity: number };
   };
   duration?: number;
+  /** Rendered element. Use "span" when nesting inside phrasing content (e.g. an h1). */
+  as?: "div" | "span";
+  /** Drives the animation externally, e.g. to wait for the preloader. */
+  animate?: "hidden" | "visible";
 }
 export const BlurIn = ({
   children,
@@ -21,26 +25,26 @@ export const BlurIn = ({
   variant,
   delay = 0,
   duration = 1,
+  as = "div",
+  animate = "visible",
 }: BlurIntProps) => {
   const defaultVariants = {
     hidden: { filter: "blur(10px)", opacity: 0 },
     visible: { filter: "blur(0px)", opacity: 1 },
   };
   const combinedVariants = variant || defaultVariants;
+  const MotionTag = as === "span" ? motion.span : motion.div;
 
   return (
-    <motion.div
+    <MotionTag
       initial="hidden"
-      animate="visible"
+      animate={animate}
       transition={{ duration, delay }}
       variants={combinedVariants}
-      className={cn(
-        className
-        // "font-display text-center text-4xl font-bold tracking-[-0.02em] drop-shadow-sm md:text-7xl md:leading-[5rem]"
-      )}
+      className={cn(as === "span" && "block", className)}
     >
       {children}
-    </motion.div>
+    </MotionTag>
   );
 };
 

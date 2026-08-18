@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./style.module.scss";
@@ -44,6 +45,7 @@ const Index: React.FC<IndexProps> = ({ setIsActive }) => {
         </div>
         <Image
           src={links[selectedLink.index].thumbnail}
+          alt={`Preview of the ${links[selectedLink.index].title} page`}
           isActive={selectedLink.isActive}
         />
         {/* <p>{links[selectedLink.index].thumbnail}</p> */}

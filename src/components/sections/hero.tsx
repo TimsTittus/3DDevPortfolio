@@ -1,8 +1,10 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
-import { File, Github, Linkedin } from "lucide-react";
+import { File } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -13,11 +15,17 @@ import { BlurIn, BoxReveal } from "../reveal-animations";
 import ScrollDownIcon from "../scroll-down-icon";
 import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
 import { config } from "@/data/config";
+import { personConfig } from "@/config/person";
 
 import SectionWrapper from "../ui/section-wrapper";
 
 const HeroSection = () => {
   const { isLoading } = usePreloader();
+  /**
+   * The hero markup is always rendered so the H1 exists in the server HTML;
+   * the preloader only drives the reveal animation.
+   */
+  const revealed = isLoading ? "hidden" : "visible";
 
   return (
     <SectionWrapper id="hero" className={cn("relative w-full h-screen")}>
@@ -30,35 +38,35 @@ const HeroSection = () => {
             "pt-28 sm:pb-16 md:p-20 lg:p-24 xl:p-28"
           )}
         >
-          {!isLoading && (
-            <div className="flex flex-col">
-              <div>
-                <BlurIn delay={0.7}>
-                  <p
-                    className={cn(
-                      "md:self-start mt-4 font-thin text-md text-slate-500 dark:text-zinc-400",
-                      "cursor-default font-display sm:text-xl md:text-xl whitespace-nowrap bg-clip-text "
-                    )}
-                  >
-                    Hi, I am
-                    <br className="md:hidden" />
-                  </p>
-                </BlurIn>
+          <div className="flex flex-col">
+            <div>
+              <BlurIn delay={0.7} animate={revealed}>
+                <p
+                  className={cn(
+                    "md:self-start mt-4 font-thin text-md text-slate-500 dark:text-zinc-400",
+                    "cursor-default font-display sm:text-xl md:text-xl whitespace-nowrap bg-clip-text "
+                  )}
+                >
+                  Hi, I am
+                  <br className="md:hidden" />
+                </p>
+              </BlurIn>
 
-                <BlurIn delay={1}>
+              <h1>
+                <BlurIn delay={1} as="span" animate={revealed}>
                   <Tooltip delayDuration={300}>
                     <TooltipTrigger asChild>
-                      <h1
+                      <span
                         className={cn(
-                          "-ml-[6px] leading-none font-thin text-transparent text-slate-800 text-left",
+                          "block -ml-[6px] leading-none font-thin text-transparent text-slate-800 text-left",
                           "font-thin text-7xl md:text-7xl lg:text-8xl xl:text-9xl",
                           "cursor-default text-edge-outline font-display "
                         )}
                       >
-                        {config.author.split(" ")[0]}
+                        {personConfig.givenName}
                         <br className="md:block hiidden" />
-                        {config.author.split(" ")[1]}
-                      </h1>
+                        {personConfig.familyName}
+                      </span>
                     </TooltipTrigger>
                     <TooltipContent
                       side="top"
@@ -68,83 +76,78 @@ const HeroSection = () => {
                     </TooltipContent>
                   </Tooltip>
                 </BlurIn>
-                {/* <div className="md:block hidden bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 w-screen h-px animate-fade-right animate-glow" /> */}
-                <BlurIn delay={1.2}>
-                  <p
+                <BlurIn delay={1.2} as="span" animate={revealed}>
+                  <span
                     className={cn(
-                      "md:self-start md:mt-4 font-thin text-slate-500 dark:text-zinc-400",
+                      "block md:self-start md:mt-4 font-thin text-slate-500 dark:text-zinc-400",
                       "cursor-default font-display text-sm sm:text-lg md:text-xl bg-clip-text"
                     )}
                   >
-                    Cybersecurity Enthusiast, Full Stack Web Developer & Polymath
-                  </p>
+                    {personConfig.headline}
+                  </span>
                 </BlurIn>
-              </div>
-              <div className="mt-8 flex flex-col gap-3 w-fit">
-                <Link
-                  href={
-                    "htt://drive.google.com/"
-                  }
-                  target="_blank"
-                  className="flex-1"
-                  aria-label="Resume PDF on Google Drive"
-                >
-                  <BoxReveal delay={2} width="100%" >
-                    <Button className="flex items-center gap-2 w-full">
-                      <File size={24} />
-                      <p>Resume</p>
+              </h1>
+            </div>
+            <div className="mt-8 flex flex-col gap-3 w-fit">
+              <Link href="/resume" className="flex-1" aria-label="Read the résumé of Tims Tittus">
+                <BoxReveal delay={2} width="100%">
+                  <Button className="flex items-center gap-2 w-full">
+                    <File size={24} aria-hidden="true" />
+                    <p>Resume</p>
+                  </Button>
+                </BoxReveal>
+              </Link>
+              <div className="md:self-start flex gap-3">
+                <Tooltip delayDuration={300}>
+                  <TooltipTrigger asChild>
+                    <Link href={"#contact"}>
+                      <Button
+                        variant={"outline"}
+                        className="block w-full overflow-hidden"
+                        aria-label="Contact Tims Tittus about work"
+                      >
+                        Hire Me
+                      </Button>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>pls 🥹 🙏</p>
+                  </TooltipContent>
+                </Tooltip>
+                <div className="flex items-center h-full gap-2">
+                  <Link
+                    href={config.social.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                  >
+                    <Button variant={"outline"} aria-label="Tims Tittus on X">
+                      <SiX size={24} aria-hidden="true" />
                     </Button>
-                  </BoxReveal>
-                </Link>
-                <div className="md:self-start flex gap-3">
-                  <Tooltip delayDuration={300}>
-                    <TooltipTrigger asChild>
-                      <Link href={"#contact"}>
-                        <Button
-                          variant={"outline"}
-                          className="block w-full overflow-hidden"
-                          aria-label="Contact - Hire Me"
-                        >
-                          Hire Me
-                        </Button>
-                      </Link>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>pls 🥹 🙏</p>
-                    </TooltipContent>
-                  </Tooltip>
-                  <div className="flex items-center h-full gap-2">
-                    <Link
-                      href={config.social.twitter}
-                      target="_blank"
-                    >
-                      <Button variant={"outline"} aria-label="Twitter Profile">
-                        <SiX size={24} />
-                      </Button>
-                    </Link>
-                    <Link
-                      href={config.social.github}
-                      target="_blank"
-                      className="cursor-can-hover"
-                    >
-                      <Button variant={"outline"} aria-label="GitHub Profile">
-                        <SiGithub size={24} />
-                      </Button>
-                    </Link>
-                    <Link
-                      href={config.social.linkedin}
-                      target="_blank"
-                      className="cursor-can-hover"
-                    >
-                      <Button variant={"outline"} aria-label="LinkedIn Profile">
-                        <SiLinkedin size={24} />
-                      </Button>
-                    </Link>
-                  </div>
+                  </Link>
+                  <Link
+                    href={config.social.github}
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    className="cursor-can-hover"
+                  >
+                    <Button variant={"outline"} aria-label="Tims Tittus on GitHub">
+                      <SiGithub size={24} aria-hidden="true" />
+                    </Button>
+                  </Link>
+                  <Link
+                    href={config.social.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    className="cursor-can-hover"
+                  >
+                    <Button variant={"outline"} aria-label="Tims Tittus on LinkedIn">
+                      <SiLinkedin size={24} aria-hidden="true" />
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
       <div className="absolute bottom-10 left-[50%] translate-x-[-50%]">
