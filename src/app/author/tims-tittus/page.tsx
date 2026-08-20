@@ -6,11 +6,18 @@ import Breadcrumbs from "@/components/seo/breadcrumbs";
 import { authorSlug, personConfig } from "@/config/person";
 import { siteConfig } from "@/config/site";
 import { socialConfig } from "@/config/social";
-import { getBlogPosts, toISODate } from "@/lib/mdx";
+import {
+  BLOG_REVALIDATE_SECONDS,
+  formatPostDate,
+  getRemoteBlogPosts,
+} from "@/lib/blog-feed";
 import { generatePageMetadata } from "@/lib/seo/metadata";
 import { JsonLd, graph } from "@/lib/seo/jsonld";
 import { breadcrumbSchema, type Crumb } from "@/lib/seo/breadcrumb-schema";
 import { profilePageSchema } from "@/lib/seo/profile-schema";
+
+/** Mirrors the article list, so it refreshes on the same schedule as /blogs. */
+export const revalidate = BLOG_REVALIDATE_SECONDS;
 
 const PATH = `/author/${authorSlug}`;
 const TITLE = "Tims Tittus — Author profile";
@@ -36,8 +43,8 @@ export const metadata: Metadata = generatePageMetadata({
   keywords: ["Tims Tittus author", "articles by Tims Tittus"],
 });
 
-export default function AuthorPage() {
-  const posts = getBlogPosts();
+export default async function AuthorPage() {
+  const posts = await getRemoteBlogPosts();
 
   return (
     <main id="main-content" className="container mx-auto max-w-3xl px-4 pt-28 pb-24">
@@ -49,7 +56,7 @@ export default function AuthorPage() {
           alt={personConfig.imageAlt}
           width={96}
           height={96}
-          className="rounded-full bg-zinc-800 object-cover"
+          className="rounded-full bg-zinc-200 dark:bg-zinc-800 object-cover"
         />
         <div>
           <h1 className="text-3xl md:text-4xl font-bold text-foreground">
@@ -107,19 +114,21 @@ export default function AuthorPage() {
             {posts.map((post) => (
               <li key={post.slug}>
                 <h3 className="text-lg font-medium">
-                  <Link
-                    href={`/blogs/${post.slug}`}
+                  <a
+                    href={post.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="underline underline-offset-4 hover:text-foreground"
                   >
-                    {post.metadata.title}
-                  </Link>
+                    {post.title}
+                  </a>
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  <time dateTime={toISODate(post.metadata.publishedAt)}>
-                    {post.metadata.publishedAt}
+                  <time dateTime={post.publishedAt}>
+                    {formatPostDate(post.publishedAt)}
                   </time>
                 </p>
-                <p className="text-muted-foreground">{post.metadata.summary}</p>
+                <p className="text-muted-foreground">{post.summary}</p>
               </li>
             ))}
           </ul>

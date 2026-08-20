@@ -2,11 +2,13 @@ import type { MetadataRoute } from "next";
 
 import { absoluteUrl } from "@/config/site";
 import { PROJECT_META, projectPath } from "@/data/projects-meta";
-import { getBlogPosts, toISODate } from "@/lib/mdx";
 
 /**
  * Only canonical, indexable, publicly useful URLs belong here.
  * API routes, the OG image endpoint and 404 are deliberately excluded.
+ *
+ * Articles are not listed: they are published on the main site, which lists
+ * them in its own sitemap. /blogs only links out to them.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -37,17 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const posts = getBlogPosts();
-  const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: absoluteUrl(`/blogs/${post.slug}`),
-    lastModified: new Date(
-      toISODate(post.metadata.updatedAt) ??
-        toISODate(post.metadata.publishedAt) ??
-        now.toISOString()
-    ),
-    changeFrequency: "yearly",
-    priority: 0.7,
-  }));
 
-  return [...staticRoutes, ...projectRoutes, ...blogRoutes];
+  return [...staticRoutes, ...projectRoutes];
 }

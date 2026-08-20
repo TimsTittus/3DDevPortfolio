@@ -61,13 +61,13 @@ export default function ProjectPage({ params }: Params) {
   return (
     <main
       id="main-content"
-      className="container mx-auto max-w-4xl px-4 pt-28 pb-24 text-zinc-300"
+      className="container mx-auto max-w-4xl px-4 pt-28 pb-24 text-zinc-700 dark:text-zinc-300"
     >
       <Breadcrumbs items={crumbs} />
 
       <article>
         <header className="mb-10">
-          <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
+          <p className="text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 font-medium">
             {project.category}
           </p>
           <h1 className="mt-3 text-4xl md:text-5xl font-bold text-foreground">
@@ -82,7 +82,7 @@ export default function ProjectPage({ params }: Params) {
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-md border border-zinc-600 px-4 py-2 text-sm hover:border-zinc-400 transition-colors"
+              className="inline-flex items-center gap-2 rounded-md border border-zinc-300 dark:border-zinc-600 px-4 py-2 text-sm text-zinc-800 dark:text-zinc-200 bg-white/50 dark:bg-transparent hover:border-zinc-500 dark:hover:border-zinc-400 transition-colors"
             >
               Visit {project.title}
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -92,7 +92,7 @@ export default function ProjectPage({ params }: Params) {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-md border border-zinc-600 px-4 py-2 text-sm hover:border-zinc-400 transition-colors"
+                className="inline-flex items-center gap-2 rounded-md border border-zinc-300 dark:border-zinc-600 px-4 py-2 text-sm text-zinc-800 dark:text-zinc-200 bg-white/50 dark:bg-transparent hover:border-zinc-500 dark:hover:border-zinc-400 transition-colors"
               >
                 {project.title} source on GitHub
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -101,7 +101,7 @@ export default function ProjectPage({ params }: Params) {
           </div>
         </header>
 
-        <div className="relative mb-12 aspect-[3/2] w-full overflow-hidden rounded-xl border-[.5px] border-zinc-700 bg-zinc-900">
+        <div className="relative mb-12 aspect-[3/2] w-full overflow-hidden rounded-xl border-[.5px] border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900">
           <Image
             src={`${project.src}${project.screenshots[0]}`}
             alt={project.imageAlt}
@@ -120,7 +120,7 @@ export default function ProjectPage({ params }: Params) {
             {project.technologies.map((tech) => (
               <li
                 key={tech}
-                className="rounded-full border border-zinc-700 px-3 py-1 text-sm text-zinc-300"
+                className="rounded-full border border-zinc-300 dark:border-zinc-700 px-3 py-1 text-sm text-zinc-700 dark:text-zinc-300 bg-zinc-100/50 dark:bg-transparent"
               >
                 {tech}
               </li>
@@ -142,7 +142,7 @@ export default function ProjectPage({ params }: Params) {
       </article>
 
       {related.length > 0 && (
-        <aside aria-labelledby="related" className="mt-16 border-t border-zinc-800 pt-10">
+        <aside aria-labelledby="related" className="mt-16 border-t border-zinc-200 dark:border-zinc-800 pt-10">
           <h2 id="related" className="text-xl font-semibold text-foreground">
             Related projects
           </h2>
@@ -151,25 +151,25 @@ export default function ProjectPage({ params }: Params) {
               <li key={item.slug}>
                 <Link
                   href={projectPath(item)}
-                  className="underline underline-offset-4 text-zinc-300 hover:text-white"
+                  className="underline underline-offset-4 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white font-medium"
                 >
                   Read the {item.title} case study
                 </Link>
-                <p className="text-sm text-zinc-500">{item.description}</p>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">{item.description}</p>
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-sm text-zinc-500">
+          <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">
             More context on how these are built:{" "}
-            <Link href="/about" className="underline underline-offset-4 hover:text-zinc-300">
+            <Link href="/about" className="underline underline-offset-4 hover:text-zinc-900 dark:hover:text-zinc-300">
               about Tims Tittus
             </Link>{" "}
             ·{" "}
-            <Link href="/blogs" className="underline underline-offset-4 hover:text-zinc-300">
+            <Link href="/blogs" className="underline underline-offset-4 hover:text-zinc-900 dark:hover:text-zinc-300">
               technical articles
             </Link>{" "}
             ·{" "}
-            <Link href="/contact" className="underline underline-offset-4 hover:text-zinc-300">
+            <Link href="/contact" className="underline underline-offset-4 hover:text-zinc-900 dark:hover:text-zinc-300">
               start a conversation
             </Link>
           </p>

@@ -1,17 +1,17 @@
 import { authorUrl, personConfig } from "@/config/person";
 import { absoluteUrl, siteConfig } from "@/config/site";
 import { PROJECT_META, projectPath } from "@/data/projects-meta";
-import { getBlogPosts } from "@/lib/mdx";
+import { BLOG_REVALIDATE_SECONDS, getRemoteBlogPosts } from "@/lib/blog-feed";
 
-export const dynamic = "force-static";
+export const revalidate = BLOG_REVALIDATE_SECONDS;
 
 /**
  * Optional machine-readable overview for LLM-based discovery tools.
  * Not a search-ranking mechanism — purely a convenience layer that mirrors
  * facts already published on the site.
  */
-export function GET() {
-  const posts = getBlogPosts();
+export async function GET() {
+  const posts = await getRemoteBlogPosts();
 
   const body = `# ${personConfig.name}
 
@@ -30,7 +30,7 @@ ${personConfig.knowsAbout.map((topic) => `- ${topic}`).join("\n")}
 ## Key pages
 - [About](${absoluteUrl("/about")}): background, focus areas and how to get in touch.
 - [Projects](${absoluteUrl("/projects")}): project case studies with stack and source links.
-- [Articles](${absoluteUrl("/blogs")}): technical write-ups.
+- [Articles](${absoluteUrl("/blogs")}): technical write-ups, published on ${siteConfig.mainSiteUrl}/blog.
 - [Resume](${absoluteUrl("/resume")}): experience and technical skills in HTML.
 - [Contact](${absoluteUrl("/contact")}): contact form and direct channels.
 
@@ -48,9 +48,7 @@ ${posts.length
       ? posts
         .map(
           (post) =>
-            `- [${post.metadata.title}](${absoluteUrl(
-              `/blogs/${post.slug}`
-            )}): ${post.metadata.summary} (${post.metadata.publishedAt})`
+            `- [${post.title}](${post.url}): ${post.summary} (${post.publishedAt.slice(0, 10)})`
         )
         .join("\n")
       : "- No articles published yet."

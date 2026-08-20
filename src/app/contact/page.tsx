@@ -81,10 +81,10 @@ export default function ContactPage() {
                 {...(channel.external
                   ? { target: "_blank", rel: "noopener noreferrer me" }
                   : {})}
-                className="flex h-full flex-col gap-1 rounded-md border border-zinc-700 p-4 hover:border-zinc-500 transition-colors"
+                className="flex h-full flex-col gap-1 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white/70 dark:bg-black/40 backdrop-blur-sm p-4 hover:border-zinc-400 dark:hover:border-zinc-500 transition-colors"
               >
-                <span className="text-lg text-zinc-300">{channel.icon}</span>
-                <span className="text-sm text-foreground">{channel.label}</span>
+                <span className="text-lg text-zinc-700 dark:text-zinc-300">{channel.icon}</span>
+                <span className="text-sm text-foreground font-medium">{channel.label}</span>
                 <span className="text-xs text-muted-foreground break-all">
                   {channel.value}
                 </span>

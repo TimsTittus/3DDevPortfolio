@@ -88,7 +88,7 @@ export default function ResumePage() {
     <main id="main-content" className="container mx-auto max-w-3xl px-4 pt-28 pb-24">
       <Breadcrumbs items={crumbs} />
 
-      <header className="mb-12 border-b border-zinc-800 pb-8">
+      <header className="mb-12 border-b border-zinc-200 dark:border-zinc-800 pb-8">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
           {personConfig.name}
         </h1>

@@ -76,19 +76,18 @@ const CONTACT_LINKS = [
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-4 md:px-[50px] xl:px-[200px] text-zinc-300 pt-24 pb-20">
+    <div className="container mx-auto px-4 md:px-[50px] xl:px-[200px] text-zinc-700 dark:text-zinc-300 pt-24 pb-20">
       <Breadcrumbs items={crumbs} />
 
       <div className="flex flex-col lg:flex-row gap-5">
         <aside className="w-full lg:basis-1/4">
           <div
-            className="p-4 md:p-8 lg:p-10 rounded-2xl border-[.5px] border-zinc-600"
-            style={{ backdropFilter: "blur(2px)" }}
+            className="p-4 md:p-8 lg:p-10 rounded-2xl border-[.5px] border-zinc-300 dark:border-zinc-600 bg-white/70 dark:bg-black/40 backdrop-blur-sm"
           >
             <div className="flex flex-row lg:flex-col items-center gap-6 lg:gap-0">
-              <div className="flex justify-center items-center lg:w-full lg:aspect-square bg-zinc-800 rounded-xl lg:mb-5">
+              <div className="flex justify-center items-center lg:w-full lg:aspect-square bg-zinc-200 dark:bg-zinc-800 rounded-xl lg:mb-5">
                 <Image
-                  className="rounded-full p-4 lg:p-10 w-[100px] md:w-[150px] lg:w-[200px] aspect-square bg-zinc-800 object-cover"
+                  className="rounded-full p-4 lg:p-10 w-[100px] md:w-[150px] lg:w-[200px] aspect-square bg-zinc-200 dark:bg-zinc-800 object-cover"
                   alt={personConfig.imageAlt}
                   src={personConfig.image}
                   width={200}
@@ -97,18 +96,18 @@ export default function AboutPage() {
                 />
               </div>
               <div className="flex flex-col gap-3 lg:items-center">
-                <p className="text-center text-xl">{personConfig.name}</p>
-                <p className="text-xs bg-zinc-700 w-fit px-3 py-1 rounded-full">
+                <p className="text-center text-xl text-zinc-900 dark:text-zinc-100">{personConfig.name}</p>
+                <p className="text-xs bg-zinc-200 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 w-fit px-3 py-1 rounded-full">
                   {personConfig.headline}
                 </p>
               </div>
             </div>
-            <hr className="my-8 border-zinc-600" />
+            <hr className="my-8 border-zinc-200 dark:border-zinc-600" />
             <ul className="flex flex-col gap-3">
               {CONTACT_LINKS.map((link) => (
                 <li key={link.name}>
                   <a
-                    className="flex items-center px-3 gap-3 w-full h-12 border-zinc-700 bg-zinc-800 hover:border-zinc-600 border-[.5px] rounded-md"
+                    className="flex items-center px-3 gap-3 w-full h-12 border-zinc-300 dark:border-zinc-700 bg-white/80 dark:bg-zinc-800/80 hover:border-zinc-400 dark:hover:border-zinc-600 border-[.5px] rounded-md transition-colors"
                     href={link.href}
                     {...(link.external
                       ? { target: "_blank", rel: "noopener noreferrer me" }
@@ -116,8 +115,8 @@ export default function AboutPage() {
                   >
                     <span className="w-8 text-xl">{link.icon}</span>
                     <span className="flex flex-col">
-                      <span className="text-sm">{link.name}</span>
-                      <span className="text-xs text-zinc-500">{link.content}</span>
+                      <span className="text-sm text-zinc-900 dark:text-zinc-100">{link.name}</span>
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400">{link.content}</span>
                     </span>
                   </a>
                 </li>
@@ -128,10 +127,9 @@ export default function AboutPage() {
 
         <main id="main-content" className="w-full lg:basis-3/4">
           <div
-            className="p-6 md:p-10 border-[.5px] rounded-md border-zinc-600"
-            style={{ backdropFilter: "blur(2px)" }}
+            className="p-6 md:p-10 border-[.5px] rounded-md border-zinc-300 dark:border-zinc-600 bg-white/70 dark:bg-black/40 backdrop-blur-sm text-zinc-700 dark:text-zinc-300"
           >
-            <h1 className="text-3xl mb-8">About Tims Tittus</h1>
+            <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-8">About Tims Tittus</h1>
 
             <p className="mb-6">
               Hey there! I&apos;m Tims — a full-stack developer studying computer
@@ -149,77 +147,77 @@ export default function AboutPage() {
               projects like{" "}
               <Link
                 href={projectPath({ slug: "monkeypen-ai" })}
-                className="underline underline-offset-4 hover:text-white"
+                className="underline underline-offset-4 hover:text-zinc-900 dark:hover:text-white"
               >
                 MonkeyPen.ai
               </Link>
               , an AI handwriting tool.
             </p>
 
-            <h2 className="text-2xl mb-4">What I work on</h2>
-            <ul className="list-disc ml-5 mb-10 space-y-2 text-zinc-400">
+            <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100 mb-4">What I work on</h2>
+            <ul className="list-disc ml-5 mb-10 space-y-2 text-zinc-600 dark:text-zinc-400">
               <li>
-                <strong className="text-zinc-200">AI engineering:</strong>{" "}
+                <strong className="text-zinc-900 dark:text-zinc-200">AI engineering:</strong>{" "}
                 building applications on top of language models and automation
                 pipelines, and wiring them into real products.
               </li>
               <li>
-                <strong className="text-zinc-200">Cybersecurity:</strong>{" "}
+                <strong className="text-zinc-900 dark:text-zinc-200">Cybersecurity:</strong>{" "}
                 security-focused study and hands-on work with detection and
                 monitoring tooling — the reason I care about how software fails,
                 not just how it runs.
               </li>
               <li>
-                <strong className="text-zinc-200">Full-stack development:</strong>{" "}
+                <strong className="text-zinc-900 dark:text-zinc-200">Full-stack development:</strong>{" "}
                 TypeScript, React, Next.js, Node.js, Express and Python on the
                 server, with PostgreSQL or MongoDB behind them, containerised
                 with Docker and deployed to the usual suspects.
               </li>
             </ul>
 
-            <h2 className="text-2xl mb-4">Where I&apos;ve worked</h2>
+            <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Where I&apos;ve worked</h2>
             <ul className="mb-4 space-y-4">
               {EXPERIENCE.map((role) => (
                 <li key={role.id}>
-                  <p className="text-zinc-200">
+                  <p className="text-zinc-900 dark:text-zinc-200 font-medium">
                     {role.title} · {role.company}
                   </p>
-                  <p className="text-sm text-zinc-500">
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
                     {role.startDate} – {role.endDate}
                   </p>
                 </li>
               ))}
             </ul>
-            <p className="mb-10 text-zinc-400">
+            <p className="mb-10 text-zinc-600 dark:text-zinc-400">
               The{" "}
-              <Link href="/resume" className="underline underline-offset-4 hover:text-white">
+              <Link href="/resume" className="underline underline-offset-4 hover:text-zinc-900 dark:hover:text-white">
                 full résumé
               </Link>{" "}
               has the detail on each role.
             </p>
 
-            <h2 className="text-2xl mb-4">Projects</h2>
+            <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Projects</h2>
             <ul className="mb-10 space-y-3">
               {PROJECT_META.map((project) => (
                 <li key={project.slug}>
                   <Link
                     href={projectPath(project)}
-                    className="underline underline-offset-4 hover:text-white"
+                    className="underline underline-offset-4 hover:text-zinc-900 dark:hover:text-white font-medium text-zinc-900 dark:text-zinc-200"
                   >
                     Read the {project.title} case study
                   </Link>
-                  <p className="text-sm text-zinc-500">{project.description}</p>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">{project.description}</p>
                 </li>
               ))}
             </ul>
 
-            <h2 className="text-2xl mb-4">Stuff I use</h2>
+            <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Stuff I use</h2>
             <ToolsCarousel />
 
-            <h2 className="text-2xl mt-10 mb-4">Elsewhere</h2>
-            <p className="text-zinc-400">
+            <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100 mt-10 mb-4">Elsewhere</h2>
+            <p className="text-zinc-600 dark:text-zinc-400">
               I write about what I build on the{" "}
-              <Link href="/blogs" className="underline underline-offset-4 hover:text-white">
+              <Link href="/blogs" className="underline underline-offset-4 hover:text-zinc-900 dark:hover:text-white">
                 blog
               </Link>
               , publish code on{" "}
@@ -227,7 +225,7 @@ export default function AboutPage() {
                 href={socialConfig.github}
                 target="_blank"
                 rel="noopener noreferrer me"
-                className="underline underline-offset-4 hover:text-white"
+                className="underline underline-offset-4 hover:text-zinc-900 dark:hover:text-white"
               >
                 GitHub
               </a>
@@ -236,7 +234,7 @@ export default function AboutPage() {
                 href={socialConfig.linkedin}
                 target="_blank"
                 rel="noopener noreferrer me"
-                className="underline underline-offset-4 hover:text-white"
+                className="underline underline-offset-4 hover:text-zinc-900 dark:hover:text-white"
               >
                 LinkedIn
               </a>
@@ -245,12 +243,12 @@ export default function AboutPage() {
                 href={siteConfig.mainSiteUrl}
                 target="_blank"
                 rel="noopener noreferrer me"
-                className="underline underline-offset-4 hover:text-white"
+                className="underline underline-offset-4 hover:text-zinc-900 dark:hover:text-white"
               >
                 timstittus.com
               </a>
               . If you have something you want built,{" "}
-              <Link href="/contact" className="underline underline-offset-4 hover:text-white">
+              <Link href="/contact" className="underline underline-offset-4 hover:text-zinc-900 dark:hover:text-white">
                 get in touch
               </Link>
               .
